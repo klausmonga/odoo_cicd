@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="edit_project_inherit" model="ir.ui.view">
+            <field name="name">project.project.inherit.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='stage_id']" position="before">
+                    <field name="is_repo_created" invisible="1"/>
+                    <button name="create_repo" string="Create Github repository" type="object" class="oe_highlight" invisible="is_repo_created"/>
+                    <button name="update_repo" string="Update" type="object" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//page[@name='settings']" position="before">
+                    <page name="cicd" string="CI/CD">
+                        <field name="github_link" placeholder="Github Repository"/>
+                        <field name="github_owner" placeholder="Github Owner"/>
+                        <field name="github_live_branch" placeholder="Github Live Branch"/>
+                        <field name="github_token" placeholder="Github Token"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>
