@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 cicd.access_cicd_branch,access_cicd_branch,cicd.model_cicd_branch,base.group_user,1,1,1,1
+cicd.access_cicd_remote_params,access_cicd_remote_params,cicd.model_cicd_remote_params,base.group_user,1,1,1,1

@@ -8,7 +8,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='stage_id']" position="before">
                     <field name="is_repo_created" invisible="1"/>
-                    <button name="create_repo" string="Create Github repository" type="object" class="oe_highlight" invisible="is_repo_created"/>
+                    <button name="create_repo" string="Create Github repository" type="object"
+                            class="oe_highlight" invisible="is_repo_created"/>
                     <button name="update_repo" string="Update" type="object" class="oe_highlight"/>
                 </xpath>
                 <xpath expr="//page[@name='settings']" position="before">
@@ -17,6 +18,13 @@
                         <field name="github_owner" placeholder="Github Owner"/>
                         <field name="github_live_branch" placeholder="Github Live Branch"/>
                         <field name="github_token" placeholder="Github Token"/>
+                        <field name="remote_params_ids" colspan="2" nolabel="1">
+                            <tree >
+                                <field name="name"/>
+                                <field name="value"/>
+                            </tree>
+                        </field>
+                         <button name="update_remote_params" string="synch params" type="object" class="oe_highlight"/>
                     </page>
                 </xpath>
             </field>

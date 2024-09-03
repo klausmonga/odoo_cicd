@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_control_document" model="ir.actions.act_window">
+        <field name="name">Control Document</field>
+        <field name="res_model">control.document</field>
+        <field name="view_mode">tree,calendar,kanban,form,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a Control Document. />
+            </p>
+        </field>
+    </record>
+    <record id="view_control_document_calendar" model="ir.ui.view">
+        <field name="name">control.document.calendar</field>
+        <field name="model">control.document</field>
+        <field name="arch" type="xml">
+            <calendar string="Control Document Calendar"
+                      create="0" mode="month"
+                      date_start="reception_date" date_stop="deadline" color="code">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="category"
+                       select="True"
+                       widget="badge"
+                       decoration-warning=" category == 'spontanne' "
+                       decoration-info=" category == 'fiscal' "
+                       decoration-success=" category == 'parafiscal' "
+                />
+                <field name="state"
+                       select="True"
+                       widget="badge"
+                       decoration-danger=" state == 'cancel' "
+                       decoration-info=" state == 'confirmed' "
+                       decoration-warning=" state == 'in_progress' "
+                       decoration-success=" state == 'done' "
+                />
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_control_document_tree" model="ir.ui.view">
+        <field name="name">control.document.tree</field>
+        <field name="model">control.document</field>
+        <field name="arch" type="xml">
+            <tree string="Control Document Structure">
+                <field name="immatriculation"/>
+                <field name="nom_du_prop"/>
+                <field name="marque_voiture"/>
+                <field name="type_voiture"/>
+                <field name="couleur_voiture"/>
+                <field name="annee_fabrication"/>
+                <field name="numero_chassis"/>
+                <field name="nombre_cv"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="view_control_document_form" model="ir.ui.view">
+        <field name="name">control.document.form</field>
+        <field name="model">control.document</field>
+        <field name="arch" type="xml">
+            <form string="Control Document Form">
+                <header>
+
+                    <button name="action_confirmed" type="object" invisible="state not in ['draft']"
+                            string="Confirm Control" class="oe_highlight" />
+                    <button name="action_in_progress" type="object" invisible="state not in ['confirmed']"
+
+                            string="Validate Control" class="oe_highlight btn-success"/>
+                    <button name="action_cancel" type="object" invisible="state not in ['confirmed']"
+
+                            string="Cancel Control" class="oe_highlight btn-danger"/>
+                    <button name="action_done" type="object" invisible="state not in ['in_progress']"
+
+                            string="Conclude Control" class="oe_highlight btn-primary"/>
+                    <button name="action_draft" type="object" invisible="state not in ['cancel','done']"
+                            string="Reset Control" class="oe_highlight btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done"
+                           statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-hourglass-end">
+                            <field string="Day(s) left" name="day_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="get_tasks" icon="fa-tasks">
+                            <field string="Tasks" name="task_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <field name="compute_situation" invisible="1"/>
+                    <field name="out_of_time" invisible="1"/>
+                    <field name="on_time" invisible="1"/>
+                    <widget name="web_ribbon" text="out of time" bg_color="bg-warning"
+                            invisible="out_of_time == False"/>
+                    <widget name="web_ribbon" text="on time" bg_color="bg-info" invisible="on_time == False"/>
+                    <widget name="web_ribbon" text="Done" bg_color="bg-success" invisible="state not in ['cancel']"/>
+                    <widget name="web_ribbon" text="Close" bg_color="bg-danger" invisible="state not in ['cancel']"/>
+                    <h1>
+                        <field name="immatriculation" readonly="1"/>
+                    </h1>
+                    <notebook>
+                            <page string="DGI">
+
+                                <group string="DIRECTION GENERALE DES IMPOTS (DGI)">
+                        <group>
+                            <field name="FICHIER_DGI"/>
+                            <field name="nom_du_prop"/>
+                            <field name="adresse"/>
+                            <field name="contact"/>
+                            <field name="marque_voiture"/>
+                            <field name="type_voiture"/>
+                            <field name="couleur_voiture"/>
+                            <field name="annee_fabrication"/>
+                            <field name="numero_chassis"/>
+                            <field name="nombre_cv"/>
+                        </group>
+                        <group>
+                            <field name="num_moteur"/>
+                            <field name="provenance"/>
+                            <field name="utilisation_vehicule"/>
+                            <field name="immatriculation"/>
+                            <field name="indice"/>
+                            <field name="annee_circulation"/>
+                        </group>
+                    </group>
+
+                            </page>
+
+                        <page string="DRIH-KAT">
+
+                                <group string="DIRECTION DES RECTTES DES IMPOTS DU HAUT-KATANGA (DRIH-KAT)">
+
+                                        <field colspan="2" name="drihkat" nolabel="1">
+                                            <tree >
+                                                <field name="npi"/>
+                                                <field name="year"/>
+                                                <field name="validity" widget="badge" decoration-danger="validity=='expire'" decoration-success="validity=='valid'"/>
+                                            </tree>
+                                        </field>
+
+                                </group>
+
+                            </page>
+
+                        <page string="DRH-KAT">
+
+                    <group string="DIRECTION DES RECETTES DU HAUT-KATANGA (DRH-KAT)">
+                        <field colspan="2" name="drhkat" nolabel="1">
+                            <tree >
+                                <field name="npi"/>
+                                <field name="ref"/>
+                                <field name="echeance"/>
+                                <field name="type" widget="badge" />
+                                <field name="validity" widget="badge" decoration-danger="validity=='expire'" decoration-success="validity=='valid'"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                            </page>
+                         <page string="LA MARIE">
+                                <group string="LA MARIE)">
+                                    <field colspan="2" name="mairie" nolabel="1">
+                                        <tree >
+                                            <field name="npi"/>
+                                            <field name="ref"/>
+                                            <field name="echeance"/>
+                                            <field name="validity" widget="badge" decoration-danger="validity=='expire'" decoration-success="validity=='valid'"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                         </page>
+                        <page string="ASSURANCES">
+                            <group string="ASSURANCES">
+                                <field colspan="2" name="assurance" nolabel="1">
+                                    <tree >
+                                        <field name="npi"/>
+                                        <field name="ref"/>
+                                        <field name="echeance"/>
+                                        <field name="level" widget="badge" />
+                                        <field name="validity" widget="badge" decoration-danger="validity=='expire'" decoration-success="validity=='valid'"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="DGRAD">
+                            <group string="DIRECTION GENERALE DES RECETTE ADMINISTRATIVES (DGRAD)" >
+                                <field colspan="2" name="dgrad" nolabel="1">
+                                    <tree >
+                                        <field name="npi"/>
+                                        <field name="ref"/>
+                                        <field name="echeance"/>
+                                        <field name="type" widget="badge" />
+                                        <field name="validity" widget="badge" decoration-danger="validity=='expire'" decoration-success="validity=='valid'"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="PCR">
+                            <group string="LA POLICE DE CIRCULATION ROUTIERE (PCR)" >
+                                <field colspan="2" name="pcr" nolabel="1">
+                                    <tree >
+                                        <field name="npi"/>
+                                        <field name="ref"/>
+                                        <field name="permis"/>
+                                        <field name="date"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_control_document_graph_line" model="ir.ui.view">
+        <field name="name">control.document.graph.line</field>
+        <field name="model">control.document</field>
+        <field name="arch" type="xml">
+            <graph string="Situation des Dossiers" type="line">
+                <field name="reception_date" type="row" interval="month"/>
+                <field name="state" type="col"/>
+                <field name="id" type="measure" operator="count"/>
+            </graph>
+        </field>
+    </record>
+    <record id="view_control_document_search" model="ir.ui.view">
+        <field name="name">control.document.search</field>
+        <field name="model">control.document</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="immatriculation"/>
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="control_document" name="Documents" parent="car_docs.main_menu_control_management"
+              action="car_docs.action_control_document" sequence="20"/>
+</odoo>

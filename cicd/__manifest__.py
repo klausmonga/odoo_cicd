@@ -15,6 +15,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/project_project_views.xml",
+        "views/project_task_views.xml"
         # 'report/action_ticket.xml',
         # 'report/ticket_external_layout.xml',
         # 'report/report_ticket.xml',

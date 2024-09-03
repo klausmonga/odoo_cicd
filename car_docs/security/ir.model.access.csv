@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+car_docs.access_control_minister,access_control_minister,car_docs.model_control_minister,base.group_user,1,1,1,1
+car_docs.access_control_nature,access_control_nature,car_docs.model_control_nature,base.group_user,1,1,1,1
+car_docs.access_control_document,access_control_document,car_docs.model_control_document,base.group_user,1,0,0,0
+car_docs.access_control_drihkat,access_control_drihkat,car_docs.model_control_drihkat,base.group_user,1,1,1,1
+car_docs.access_control_drhkat,access_control_drhkat,car_docs.model_control_drhkat,base.group_user,1,1,1,1
+car_docs.access_control_mairie,access_control_mairie,car_docs.model_control_mairie,base.group_user,1,1,1,1
+car_docs.access_control_dgrad,access_control_dgrad,car_docs.model_control_dgrad,base.group_user,1,1,1,1
+car_docs.access_control_pcr,access_control_pcr,car_docs.model_control_pcr,base.group_user,1,1,1,1
+car_docs.access_control_assurance,access_control_assurance,car_docs.model_control_assurance,base.group_user,1,1,1,1
+car_docs.access_control_action,access_control_action,car_docs.model_control_action,base.group_user,1,1,1,1
+car_docs.access_control_document_dashboard,access_control_document_dashboard,car_docs.model_control_document_dashboard,base.group_user,1,1,1,1

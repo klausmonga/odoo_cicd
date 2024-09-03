@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem
+            id="main_menu_control_management"
+            name="Controls"
+            web_icon="bvortex_controls,static/description/icon.png"
+    />
+
+    <menuitem id="control_configuration"
+              name="Configuration"
+              parent="car_docs.main_menu_control_management"
+              sequence="100"
+    />
+
+    <record id="action_dashboard_control_document" model="ir.actions.client">
+        <field name="name">Dashboard Control Document</field>
+        <field name="tag">dashboard_control_document_tag</field>
+    </record>
+    <menuitem
+            id="main_menu_dashboard_management"
+            name="Dashboard"
+            sequence="1"
+            web_icon="bvortex_controls,static/description/icon_dash.png"
+    />
+
+    <menuitem name="Dashboard"
+              id="menu_control_document_dashboard"
+              parent="car_docs.main_menu_dashboard_management"
+              sequence="6"
+              action="action_dashboard_control_document"/>
+
+</odoo>

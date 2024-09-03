@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="edit_project_task_inherit" model="ir.ui.view">
+            <field name="name">project.project.task.inherit.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='date_deadline']" position="before">
+                    <label for="code_version"/>
+                    <div id="code_version" class="d-inline-flex w-100">
+                        <field name="code_version" nolabel="1"/>
+                        <button name="set_logs" string="Get Report" type="object" class="oe_highlight"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>
